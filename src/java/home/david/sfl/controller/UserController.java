@@ -28,7 +28,7 @@ public class UserController {
     private UserValidator userValidator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration (Model model) {
+    public String registration(Model model) {
 
         model.addAttribute("userForm", new User());
 
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration (@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
 
         userValidator.validate(userForm, bindingResult);
 
@@ -50,13 +50,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login (User user, Model model, String error, String logout) {
+    public String login(User user, Model model, String error, String logout) {
 
-        if (user.getRole() != null && user.getRole().equals("USER_ROLE")) {
+        if (user.getRole() != null && user.getRole().equals("ROLE_USER")) {
             return "redirect:/user";
         }
 
-        if (user.getRole() != null && user.getRole().equals("ADMIN_ROLE")) {
+        if (user.getRole() != null && user.getRole().equals("ROLE_ADMIN")) {
             return "redirect:/admin";
         }
 
@@ -72,12 +72,12 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/user"}, method = RequestMethod.GET)
-    public String welcome (Model model) {
+    public String welcome(Model model) {
         return "user";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin (Model model) {
+    public String admin(Model model) {
         return "admin";
     }
 

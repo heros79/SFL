@@ -11,12 +11,8 @@
 
         <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/user" access="hasRole('ROLE_AUSER')"/>
-        <!--   <intercept-url pattern="/userlog" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-         <intercept-url pattern="/userpage" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>-->
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
 
-        <!--<form-login login-page="/admlog" default-target-url="/admpage" authentication-failure-url="/login?error"
-                    username-parameter="username" password-parameter="password"/>-->
         <form-login login-page="/login" authentication-failure-url="/login?error"
                     username-parameter="username" password-parameter="password"/>
 
@@ -31,10 +27,6 @@
 
     <beans:bean id="userDetailsServiceImpl"
                 class="home.david.sfl.service.UserDetailsServiceImpl"></beans:bean>
-
-    <beans:bean id="user"
-                class="home.david.sfl.model.User"></beans:bean>
-
 
     <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

@@ -5,12 +5,17 @@ import home.david.sfl.service.SecurityService;
 import home.david.sfl.service.UserService;
 import home.david.sfl.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.security.Principal;
 
 /**
  * Created by David on 6/16/2017.
@@ -50,15 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(User user, Model model, String error, String logout) {
-
-        if (user.getRole() != null && user.getRole().equals("ROLE_USER")) {
-            return "redirect:/user";
-        }
-
-        if (user.getRole() != null && user.getRole().equals("ROLE_ADMIN")) {
-            return "redirect:/admin";
-        }
+    public String login(Model model, String error, String logout) {
 
         if (error != null) {
             model.addAttribute("error", "username or password is incorrect");
@@ -71,8 +68,23 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/user"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
+    @RequestMapping (value = {"/"}, method = RequestMethod.GET)
+    public String choise (User user) {
+
+        System.out.println("Davidka " + user.getRole() + " " + SecurityContextHolder.getContext().getAuthentication());
+        if  {
+            return "redirect:/user";
+        }
+
+        if (user.getRole() != null && user.getRole().equals("ROLE_ADMIN")) {
+            return "redirect:/admin";
+        }
+
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
+    public String user(Model model) {
         return "user";
     }
 

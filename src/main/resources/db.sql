@@ -33,3 +33,4 @@ CREATE TABLE tasks (
 
 -- Insert amin data
 INSERT INTO `sfl`.`users` (`id`, `username`, `password`, `user_role`) VALUES ('1', 'admin', '$2a$04$eIn9FZNAhe2fvFMbzwpJueHy5FaO2ZDefsgi0ps.LPAc3HVyuF3pK', 1)
+

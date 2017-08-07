@@ -5,10 +5,12 @@ import home.david.sfl.dao.TaskDao;
 import home.david.sfl.model.Project;
 import home.david.sfl.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -37,6 +39,17 @@ public class ActionServiceImpl implements ActionService {
     }
 
     @Override
+    public Project remove(Project project, String projectName) {
+        findAllProject().remove(findByProjectName(projectName));
+        return null;
+    }
+
+    @Override
+    public Task remove(Task task, String taskSubject) {
+        return null;
+    }
+
+    @Override
     public Project findByProjectName(String projectName) {
         return projectDao.findByName(projectName);
     }
@@ -44,5 +57,25 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public Task findByTaskSubject(String taskSubject) {
         return taskDao.findBySubject(taskSubject);
+    }
+
+    @Override
+    public List<Task> findAllSubject() {
+
+        for (Task subject: taskDao.findAll()) {
+            findAllSubject().add(subject);
+        }
+
+        return findAllSubject();
+    }
+
+    @Override
+    public List<Project> findAllProject() {
+
+        for (Project project: projectDao.findAll()) {
+            findAllProject().add(project);
+        }
+
+        return findAllProject();
     }
 }

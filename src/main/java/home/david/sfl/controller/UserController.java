@@ -5,9 +5,7 @@ import home.david.sfl.service.SecurityService;
 import home.david.sfl.service.UserService;
 import home.david.sfl.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.security.Principal;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by David on 6/16/2017.
@@ -68,15 +66,15 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping (value = {"/"}, method = RequestMethod.GET)
-    public String choise (User user) {
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public String choise(User user, HttpServletRequest request) {
+        SecurityContextHolder.getContext().getAuthentication().getDetails();
 
-        System.out.println("Davidka " + user.getRole() + " " + SecurityContextHolder.getContext().getAuthentication());
-        if  {
+        if (request.isUserInRole(User.Role.ROLE_USER.name())) {
             return "redirect:/user";
         }
 
-        if (user.getRole() != null && user.getRole().equals("ROLE_ADMIN")) {
+        if (request.isUserInRole(User.Role.ROLE_ADMIN.name())) {
             return "redirect:/admin";
         }
 
